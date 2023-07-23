@@ -4,8 +4,6 @@
 
 ## Install
 
-💾 ~[**0.67KB**](https://bundlephobia.com/package/typesafe-custom-events) minified, no additional dependencies.
-
 ```bash
 npm i @ryfylke-react-as/scroll-handler
 ```
