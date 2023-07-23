@@ -58,7 +58,9 @@ class ScrollHandler {
             return scrollTop > after && scrollTop < before;
         }, (event, { disable }) => effect(event, {
             getPercent: () => {
-                return ((this.scrollTop + after) / before) * 100;
+                const totalDistance = before - after;
+                const scrolledDistance = this.scrollTop - after;
+                return (scrolledDistance / totalDistance) * 100;
             },
             disable,
         }));
