@@ -1,5 +1,5 @@
 {
-  "name": "@ryfylke-react-as/scroll-handler",
+  "name": "@ryfylke-react/scroll-handler",
   "version": "1.0.0",
   "description": "Create scroll-effects with ease and performance in mind",
   "main": "./dist/cjs/index.js",
