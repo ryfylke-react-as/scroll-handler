@@ -107,4 +107,4 @@ type ScrollEffect = (
 
 The following is the entire library source, if you prefer - you can copy/paste this into a file in your project.
 
-[↗ Open in GitHub](https://github.com/ryfylke-react-as/typesafe-custom-events/blob/master/src/index.ts)
+[↗ Open in GitHub](https://github.com/ryfylke-react-as/scroll-handler/blob/master/src/index.ts)
