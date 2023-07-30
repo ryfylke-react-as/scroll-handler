@@ -146,6 +146,63 @@ type ScrollEffect = (
 type ScrollEventTarget = HTMLElement | number;
 ```
 
+## Use with React
+
+If you are going to use this with React, you can install the `@ryfylke-react/scroll-handler-react` package.
+
+```typescript
+const App = () => {
+  const targetElementRef = useRef<HTMLElement>(null);
+
+  useScrollHandler({
+    onScroll: [() => {
+      // ...
+    }]
+    between: [
+      {
+        after: 0,
+        before: targetElementRef,
+        effect: () => {
+          // ...
+        }
+      }
+    ]
+  })
+}
+```
+
+This makes it easier to use ScrollHandler with React.
+`ScrollEventTarget` is also extended to accept React refs, which is how you should pass elements to the hook.
+
+## Q/A
+
+- **My events are not firing when I scroll**  
+  Make sure that you have called the `enable` method on the scroll handler instance.
+
+  It could also be that you are not targetting the correct element. By default, the scroll handler targets `document.documentElement || document.body`.
+  If you are using a custom scroll container, you should pass it as an argument when initializing the scroll handler.
+
+  If you want to _listen_ on scroll on one element, but get the `scrollTop` from another, you should use `target` to specify the listener-element, and `getScrollTop` function to specify how to get the scrollTop:
+
+  ```typescript
+  const scrollHandler = new ScrollHandler({
+    target: document.querySelector("main")!,
+    getScrollTop: () =>
+      document.querySelector("#app")!.scrollTop,
+  });
+  ```
+
+  This is only for very specific use-cases, and you should probably not do this.
+
+  **If you want the target to be the document body, you should not pass the `target` argument, or pass it as `undefined`**.
+  This is because the scroll handler will use `document.documentElement || document.body` to get the `scrollTop` (unless you specify a `getScrollTop` function),
+  but `document` to add the event listener. This is the most consistent way to do it for the "page scroll", and should work in all browsers.
+
+- **My events are firing too often**  
+  Make sure that you are not creating a new scroll handler instance on every render. This will cause the scroll handler to add a new event listener on every render, which will cause the events to fire more often than they should.
+
+  Additionally, you can use a [debounce](https://decipher.dev/30-seconds-of-typescript/docs/debounce/) util to debounce the events.
+
 ## Source
 
 The following is the entire library source, if you prefer - you can copy/paste this into a file in your project.
