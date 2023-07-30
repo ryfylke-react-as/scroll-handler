@@ -22,6 +22,9 @@ const debounce = (fn, ms = 300) => {
 };
 export class ScrollHandler {
     get scrollTop() {
+        if (this.opts.getScrollTop) {
+            return this.opts.getScrollTop();
+        }
         const el = __classPrivateFieldGet(this, _ScrollHandler_instances, "m", _ScrollHandler_getHTMLTarget).call(this);
         return el.scrollTop;
     }
@@ -44,6 +47,7 @@ export class ScrollHandler {
             __classPrivateFieldGet(this, _ScrollHandler_instances, "m", _ScrollHandler_triggerEffects).call(this, event);
             __classPrivateFieldSet(this, _ScrollHandler_prevScrollTop, this.scrollTop, "f");
         }, "f");
+        this.opts = opts !== null && opts !== void 0 ? opts : {};
         const observerCallback = debounce(() => {
             __classPrivateFieldGet(this, _ScrollHandler_positionCache, "f").clear();
         }, 200);

@@ -7,12 +7,14 @@ type BetweenScrollEffect = (event: Event, options: {
 }) => void;
 type ScrollHandlerOptions = {
     target?: HTMLElement;
+    getScrollTop?: () => number;
     enable?: boolean;
 };
 type ScrollEventTarget = HTMLElement | number;
 export declare class ScrollHandler {
     #private;
     target: HTMLElement | Document;
+    opts: ScrollHandlerOptions;
     get scrollTop(): number;
     constructor(opts?: ScrollHandlerOptions);
     enable(): this;

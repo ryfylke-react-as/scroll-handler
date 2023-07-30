@@ -25,12 +25,13 @@
 }
 
 .navbar {
-  background: var(--ifm-color-primary-darkest);
-  color: #f9f9f9;
+  background: var(--ifm-background-color);
+  color: inherit;
 }
 
-[data-theme="dark"] .navbar {
-  background: var(--ifm-color-primary-darkest);
+.navbar [data-theme="dark"] .navbar {
+  background: var(--ifm-background-color);
+  color: inherit;
 }
 
 .alert--success {
