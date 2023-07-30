@@ -1,11 +1,11 @@
-type ScrollEffect = (
+export type ScrollEffect = (
   event: Event,
   options: {
     disable: () => void;
   }
 ) => void;
 
-type BetweenScrollEffect = (
+export type BetweenScrollEffect = (
   event: Event,
   options: {
     disable: () => void;
@@ -13,13 +13,13 @@ type BetweenScrollEffect = (
   }
 ) => void;
 
-type ScrollHandlerOptions = {
+export type ScrollHandlerOptions = {
   target?: HTMLElement;
   getScrollTop?: () => number;
   enable?: boolean;
 };
 
-type ScrollEventTarget = HTMLElement | number;
+export type ScrollEventTarget = HTMLElement | number;
 
 type ConditionalEffect = {
   condition: () => boolean;
