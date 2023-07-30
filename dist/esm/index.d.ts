@@ -9,6 +9,7 @@ type ScrollHandlerOptions = {
     target?: HTMLElement;
     enable?: boolean;
 };
+type ScrollEventTarget = HTMLElement | number;
 export declare class ScrollHandler {
     #private;
     target: HTMLElement | Document;
@@ -19,8 +20,8 @@ export declare class ScrollHandler {
     onScroll(effect: ScrollEffect): this;
     goTo(opts: ScrollToOptions): this;
     when(condition: () => boolean, effect: ScrollEffect): this;
-    between(after: number, before: number, effect: BetweenScrollEffect): this;
-    onceOver(px: number, effect: ScrollEffect): this;
-    onceUnder(px: number, effect: ScrollEffect): this;
+    between(after: ScrollEventTarget, before: ScrollEventTarget, effect: BetweenScrollEffect): this;
+    onceOver(target: ScrollEventTarget, effect: ScrollEffect): this;
+    onceUnder(target: ScrollEventTarget, effect: ScrollEffect): this;
 }
 export {};

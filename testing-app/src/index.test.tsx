@@ -8,6 +8,8 @@ import { d } from "vitest/dist/types-e3c9754d";
 // Mock for `Element.scrollTo` method
 Element.prototype.scrollTo = function (options) {
   this.scrollTop = options.top;
+  this.__offsetTop = options.top;
+
   this.dispatchEvent(
     new CustomEvent("scroll", {
       detail: {
@@ -16,6 +18,36 @@ Element.prototype.scrollTo = function (options) {
     })
   );
 };
+
+// Mock for `Element.getBoundingClientRect` method
+window.HTMLElement.prototype.getBoundingClientRect =
+  function () {
+    return {
+      width: parseFloat(this.style.width) || 0,
+      height: parseFloat(this.style.height) || 0,
+      top: parseFloat(this.style.marginTop) || 0,
+      left: parseFloat(this.style.marginLeft) || 0,
+      x: parseFloat(this.style.marginLeft) || 0,
+      y: parseFloat(this.style.marginTop) || 0,
+      bottom: parseFloat(this.style.marginTop) || 0,
+      right: parseFloat(this.style.marginLeft) || 0,
+      toJSON: () => "",
+    };
+  };
+
+// Mock for ResizeObserver
+window.ResizeObserver = class {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+};
+
+// Mock for MutationObserver
+window.MutationObserver = class {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+} as any;
 
 describe("ScrollHandler", () => {
   afterEach(() => {

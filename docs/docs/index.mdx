@@ -50,9 +50,41 @@ scrollHandler
   });
 ```
 
+You can also pass elements as arguments to `between`, `onceOver` and `onceUnder`:
+
+```typescript
+const element = document.querySelector("#element")!;
+scrollHandler
+  .between(0, element, () => {
+    // ...
+  })
+  .onceOver(element, () => {
+    // ...
+  });
+```
+
+This essentially uses the elements `getBoundingClientRect().top` to determine the value. This value
+is cached, and uses a `MutationObserver` and debounced resize-listener to do it's best to update the
+value whenever the element could have changed position.
+
+If you know that the element will not change position, you could just pass the value.
+
+```typescript
+const elTop = document
+  .querySelector("#element")!
+  .getBoundingClientRect().top;
+scrollHandler
+  .between(0, elTop, () => {
+    // ...
+  })
+  .onceOver(elTop, () => {
+    // ...
+  });
+```
+
 ### Reference
 
-You can create a new `ScrollHandler` using the following arguments:
+### ScrollHandler arguments
 
 ```typescript
 const options: {
@@ -62,21 +94,19 @@ const options: {
 const handler = new ScrollHandler(options);
 ```
 
-A `ScrollHandler` instance contains the following properties:
-
-**Methods:**
+### ScrollHandler instance methods
 
 - **onScroll**  
   `(effect: ScrollEffect) => this`  
   Send event to channel
 - **between**  
-  `(after: number, before: number, effect: ScrollEffect) => this`  
+  `(after: ScrollEventTarget, before: ScrollEventTarget, effect: ScrollEffect) => this`  
   Sets up conditional effect that runs between two scroll positions
 - **onceOver**  
-  `(after: number, effect: ScrollEffect) => this`  
+  `(after: ScrollEventTarget, effect: ScrollEffect) => this`  
   Sets up conditional effect that runs once when scroll position goes from less than to more than a given position
 - **onceUnder**  
-  `(before: number, effect: ScrollEffect) => this`  
+  `(before: ScrollEventTarget, effect: ScrollEffect) => this`  
   Sets up conditional effect that runs once when scroll position goes from more than to less than a given position
 - **when**  
   `(condition: () => boolean, effect: ScrollEffect) => this`  
@@ -91,14 +121,14 @@ A `ScrollHandler` instance contains the following properties:
   `(opts: GoToOptions) => this`  
   Scrolls to a given position
 
-**Properties:**
+### ScrollHandler instance properties
 
 - **scrollTop** `number`  
   The current scroll position
 - **target** `HTMLElement`  
   The target element
 
-**ScrollEffect** type:
+### ScrollEffect
 
 ```typescript
 type ScrollEffect = (
@@ -108,6 +138,12 @@ type ScrollEffect = (
     disable: () => void;
   }
 ) => void;
+```
+
+### ScrollEventTarget
+
+```typescript
+type ScrollEventTarget = HTMLElement | number;
 ```
 
 ## Source
