@@ -25,7 +25,9 @@ export class ScrollHandler {
         if (this.opts.getScrollTop) {
             return this.opts.getScrollTop();
         }
-        const el = __classPrivateFieldGet(this, _ScrollHandler_instances, "m", _ScrollHandler_getHTMLTarget).call(this);
+        const el = this.target instanceof Document
+            ? document.documentElement || document.body
+            : this.target;
         return el.scrollTop;
     }
     constructor(opts) {

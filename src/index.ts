@@ -63,7 +63,10 @@ export class ScrollHandler {
     if (this.opts.getScrollTop) {
       return this.opts.getScrollTop();
     }
-    const el = this.#getHTMLTarget();
+    const el =
+      this.target instanceof Document
+        ? document.documentElement || document.body
+        : this.target;
     return el.scrollTop;
   }
 
