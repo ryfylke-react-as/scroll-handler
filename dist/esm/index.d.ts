@@ -1,16 +1,16 @@
-type ScrollEffect = (event: Event, options: {
+export type ScrollEffect = (event: Event, options: {
     disable: () => void;
 }) => void;
-type BetweenScrollEffect = (event: Event, options: {
+export type BetweenScrollEffect = (event: Event, options: {
     disable: () => void;
     getPercent: () => number;
 }) => void;
-type ScrollHandlerOptions = {
+export type ScrollHandlerOptions = {
     target?: HTMLElement;
     getScrollTop?: () => number;
     enable?: boolean;
 };
-type ScrollEventTarget = HTMLElement | number;
+export type ScrollEventTarget = HTMLElement | number;
 export declare class ScrollHandler {
     #private;
     target: HTMLElement | Document;
@@ -26,4 +26,3 @@ export declare class ScrollHandler {
     onceOver(target: ScrollEventTarget, effect: ScrollEffect): this;
     onceUnder(target: ScrollEventTarget, effect: ScrollEffect): this;
 }
-export {};
