@@ -15,6 +15,7 @@ type BetweenScrollEffect = (
 
 type ScrollHandlerOptions = {
   target?: HTMLElement;
+  getScrollTop?: () => number;
   enable?: boolean;
 };
 
@@ -56,8 +57,12 @@ export class ScrollHandler {
   #resizeObserver: ResizeObserver;
   #mutationObserver: MutationObserver;
   target: HTMLElement | Document;
+  opts: ScrollHandlerOptions;
 
   get scrollTop() {
+    if (this.opts.getScrollTop) {
+      return this.opts.getScrollTop();
+    }
     const el = this.#getHTMLTarget();
     return el.scrollTop;
   }
@@ -72,6 +77,7 @@ export class ScrollHandler {
       this.#triggerEffects(event);
       this.#prevScrollTop = this.scrollTop;
     };
+    this.opts = opts ?? {};
 
     const observerCallback = debounce(() => {
       this.#positionCache.clear();
